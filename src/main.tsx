@@ -1,31 +1,31 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import ErrorPage from "pages/ErrorPage";
-import Root, { action, loader } from "~/views/Root";
-import Dashboard from "./views/pages/Dashboard";
-import Departments from "./views/pages/Departments";
-import Teams from "./views/pages/Teams";
-import Users from "./views/pages/Users";
-import Department from "./views/pages/Department";
-import Team from "./views/pages/Team";
-import User from "./views/pages/User";
-import Project from "./views/pages/Project";
-import Projects from "./views/pages/Projects";
-import Login from "./views/pages/Login";
-import TemplateWithNavigation from "./components/template/TemplateWithNavigation";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import ErrorPage from 'pages/ErrorPage';
+import Root, { action, loader } from '~/views/Root';
+import Dashboard from './views/pages/Dashboard';
+import Departments from './views/pages/Departments';
+import Teams from './views/pages/Teams';
+import Users from './views/pages/Users';
+import Department from './views/pages/Department';
+import Team from './views/pages/Team';
+import User from './views/pages/User';
+import Project from './views/pages/Project';
+import Projects from './views/pages/Projects';
+import Login from './views/pages/Login';
+import TemplateWithNavigation from './components/template/TemplateWithNavigation';
 
 const router = createBrowserRouter([
   {
-    id: "root",
-    path: "/",
+    id: 'root',
+    path: '/',
     element: <Root />,
     errorElement: <ErrorPage />,
     loader: loader,
     action: action,
     children: [
       {
-        path: "/login",
+        path: '/login',
         element: <Login />,
         errorElement: <ErrorPage />,
       },
@@ -38,35 +38,35 @@ const router = createBrowserRouter([
             element: <Dashboard />,
           },
           {
-            path: "departments",
+            path: 'departments',
             element: <Departments />,
           },
           {
-            path: "projects",
+            path: 'projects',
             element: <Projects />,
           },
           {
-            path: "teams",
+            path: 'teams',
             element: <Teams />,
           },
           {
-            path: "users",
+            path: 'users',
             element: <Users />,
           },
           {
-            path: "department/:id",
+            path: 'department/:id',
             element: <Department />,
           },
           {
-            path: "team/:id",
+            path: 'team/:id',
             element: <Team />,
           },
           {
-            path: "user/:id",
+            path: 'user/:id',
             element: <User />,
           },
           {
-            path: "project/:id",
+            path: 'project/:id',
             element: <Project />,
           },
         ],
@@ -75,8 +75,14 @@ const router = createBrowserRouter([
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
+const root = document.getElementById('root');
+
+if (root === null) {
+  throw new Error('root element not found');
+}
+
+ReactDOM.createRoot(root).render(
   <React.StrictMode>
     <RouterProvider router={router} />
-  </React.StrictMode>
+  </React.StrictMode>,
 );

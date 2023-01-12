@@ -1,15 +1,15 @@
-import { useEffect } from "react";
-import { Outlet, redirect, useNavigate, useNavigation } from "react-router-dom";
-import { useCustomLoaderData } from "~/hooks/useCustomLoaderData";
+import { useEffect } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { useCustomLoaderData } from '~/hooks/useCustomLoaderData';
 
-let user: { name: string } | null = { name: "John Doe" };
+let user: { name: string } | null = { name: 'John Doe' };
 
 export async function loader() {
   return { user };
 }
 
 export async function action() {
-  user = { name: "John Doe" };
+  user = { name: 'John Doe' };
   return user;
 }
 
