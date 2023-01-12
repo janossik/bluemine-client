@@ -1,6 +1,7 @@
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 
 const TemplateWithNavigation = () => {
+  const navigate = useNavigate();
   return (
     <>
       <div id='sidebar'>
@@ -21,6 +22,14 @@ const TemplateWithNavigation = () => {
               <Link to='/users'>Users</Link>
             </li>
           </ul>
+          <button
+            onClick={() => {
+              sessionStorage.clear();
+              navigate('/login', { replace: true });
+            }}
+          >
+            log out
+          </button>
         </nav>
       </div>
 

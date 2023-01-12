@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, redirect, RouterProvider } from 'react-router-dom';
 import ErrorPage from 'pages/ErrorPage';
-import Root, { action, loader } from '~/views/Root';
+import Root from '~/views/Root';
 import Dashboard from './views/pages/Dashboard';
 import Departments from './views/pages/Departments';
 import Teams from './views/pages/Teams';
@@ -15,14 +15,42 @@ import Projects from './views/pages/Projects';
 import Login from './views/pages/Login';
 import TemplateWithNavigation from './components/template/TemplateWithNavigation';
 
+if (import.meta.env.VITE_NODE_ENV === 'development') {
+  const { worker } = await import('~/mocks/browser');
+  worker.start();
+}
+
+export async function loader() {
+  const response = await fetch('/auth', { method: 'POST' });
+
+  if (!response.ok) {
+    return { user: null };
+  }
+
+  const user = await response.json();
+
+  if (!user) {
+    return redirect('/login');
+  }
+
+  return { user };
+}
+
+export async function action() {
+  const response = await fetch('/auth', { method: 'POST' });
+  const user = await response.json();
+  return user;
+}
+
 const router = createBrowserRouter([
   {
-    id: 'root',
     path: '/',
     element: <Root />,
     errorElement: <ErrorPage />,
+    id: 'auth',
     loader: loader,
     action: action,
+
     children: [
       {
         path: '/login',

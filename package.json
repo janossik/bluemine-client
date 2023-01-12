@@ -37,5 +37,8 @@
   "main": "src/main.tsx",
   "repository": "git@github.com:janossik/bluemine-client.git",
   "author": "Marcin Czaniecki <marcinczaniecki97@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "msw": {
+    "workerDirectory": "public"
+  }
 }
